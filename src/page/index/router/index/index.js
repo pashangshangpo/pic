@@ -9,6 +9,7 @@ import { el } from 'pssp/util'
 import { Layout } from 'pssp-pc'
 
 import Gitee from './gitee'
+import './uploadPic'
 
 const { Sider, Menu, Content } = Layout
 
