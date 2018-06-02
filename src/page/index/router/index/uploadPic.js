@@ -119,6 +119,8 @@ ipcRenderer.on('toUploadPic', () => {
   uploadPic(
     clipboard.readImage().toDataURL().split(',')[1]
   ).then(url => {
-    clipboard.writeText(url)
+    if (url) {
+      clipboard.writeText(url)
+    }
   })
 })
