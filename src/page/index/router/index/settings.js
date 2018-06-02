@@ -50,7 +50,7 @@ export default class extends Component {
     return el(
       Textarea,
       {
-        placeholder: 'markdown格式: ![]($url)',
+        placeholder: '![]($url)',
         minLine: 2,
         maxLine: 2,
         value: this.state.customLinkFormat,
