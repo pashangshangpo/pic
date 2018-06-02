@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react'
 import { el } from 'pssp/util'
-import { Form, Input, Textarea } from 'pssp-pc'
+import { Form, Input, Textarea, RadioTag } from 'pssp-pc'
 
 export default class extends Component {
   state = {
@@ -19,6 +19,30 @@ export default class extends Component {
 
   handleClickSave = () => {
     
+  }
+
+  handleChangeSelectPicServer = () => {
+    
+  }
+
+  renderSelectPicServer = () => {
+    return el(
+      'div',
+      {},
+      el(
+        'h4',
+        {},
+        '当前使用的图床'
+      ),
+      el(
+        RadioTag,
+        {
+          checked: 'gitee',
+          data: ['gitee'],
+          onChange: this.handleChangeSelectPicServer
+        }
+      )
+    )
   }
 
   renderCustomLinkFormat = () => {
@@ -44,6 +68,7 @@ export default class extends Component {
     return el(
       'div',
       {},
+      this.renderSelectPicServer(),
       this.renderCustomLinkFormat()
     )
   }
