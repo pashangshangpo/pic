@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react'
+import { clipboard } from 'electron'
 import { el } from 'pssp/util'
 import { Layout } from 'pssp-pc'
 
@@ -28,6 +29,10 @@ export default class extends Component {
         '设置'
       )
     }
+  }
+
+  componentDidMount() {
+    console.log(clipboard.readImage().toDataURL().split(',')[1])
   }
 
   renderContent = () => {
