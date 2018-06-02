@@ -10,7 +10,8 @@ import { Form, Input, Textarea, RadioTag } from 'pssp-pc'
 
 export default class extends Component {
   state = {
-    
+    currentPicServer: 'gitee',
+    customLinkFormat: ''
   }
 
   componentWillMount() {
@@ -22,7 +23,7 @@ export default class extends Component {
   }
 
   handleChangeSelectPicServer = () => {
-    
+
   }
 
   renderSelectPicServer = () => {
@@ -37,9 +38,13 @@ export default class extends Component {
       el(
         RadioTag,
         {
-          checked: 'gitee',
+          checked: this.state.currentPicServer,
           data: ['gitee'],
-          onChange: this.handleChangeSelectPicServer
+          onChange: tag => {
+            this.setState({
+              currentPicServer: tag
+            })
+          }
         }
       )
     )
@@ -58,7 +63,13 @@ export default class extends Component {
         Textarea,
         {
           placeholder: '$url为图片地址, markdown图片格式为: ![]($url)',
-          minLine: 3
+          minLine: 3,
+          value: this.state.customLinkFormat,
+          onChange: e => {
+            this.setState({
+              customLinkFormat: e.target.value
+            })
+          }
         }
       )
     )
