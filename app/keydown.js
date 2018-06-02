@@ -7,10 +7,8 @@
 const { app, globalShortcut } = require('electron')
 const mainWindow = process.$mainWindow
 
-globalShortcut.register('command+;', function () {
-  if (!mainWindow.isVisible()) {
-    mainWindow.show()
-  }
+globalShortcut.register('command+shift+p', function () {
+  mainWindow.webContents.send('toUploadPic')
 })
 
 app.on('will-quit', function () {

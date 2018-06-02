@@ -5,13 +5,17 @@
  */
 
 import React, { Component } from 'react'
-import { clipboard } from 'electron'
+import { clipboard, ipcRenderer } from 'electron'
 import { el } from 'pssp/util'
 import { Layout } from 'pssp-pc'
 
 import Gitee from './gitee'
 
 const { Sider, Menu, Content } = Layout
+
+ipcRenderer.on('toUploadPic', () => {
+  console.log(clipboard.readImage().toDataURL().split(',')[1])
+})
 
 export default class extends Component {
   state = {
@@ -29,10 +33,6 @@ export default class extends Component {
         '设置'
       )
     }
-  }
-
-  componentDidMount() {
-    console.log(clipboard.readImage().toDataURL().split(',')[1])
   }
 
   renderContent = () => {
