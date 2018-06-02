@@ -8,6 +8,8 @@ import React, { Component } from 'react'
 import { el } from 'pssp/util'
 import { Form, Input } from 'pssp-pc'
 
+import './gitee.less'
+
 export default class extends Component {
   state = {
     accessToken: '',
