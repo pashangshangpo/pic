@@ -36,6 +36,11 @@ ipcRenderer.on('toUploadPic', () => {
       .then(res => {
         const download_url = res.content.download_url
 
+        ipcRenderer.send('message', {
+          title: 'Pic',
+          body: '图片上传成功!'
+        })
+
         clipboard.writeText(`![](${download_url})`)
       })
     }
