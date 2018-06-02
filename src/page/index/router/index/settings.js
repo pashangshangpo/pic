@@ -31,10 +31,6 @@ export default class extends Component {
     alert('设置成功')
   }
 
-  handleChangeSelectPicServer = () => {
-
-  }
-
   renderSelectPicServer = () => {
     return el(
       RadioTag,
