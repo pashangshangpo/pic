@@ -16,11 +16,11 @@ const { Sider, Menu, Content } = Layout
 
 export default class extends Component {
   state = {
-    checkedName: 'gitee'
+    checkedName: '码云'
   }
 
   types = {
-    'gitee': () => {
+    '码云': () => {
       return el(Gitee)
     },
     '设置': () => {
@@ -51,7 +51,7 @@ export default class extends Component {
           checked: this.state.checkedName,
           data: [
             {
-              name: 'gitee'
+              name: '码云'
             },
             {
               name: '设置'
