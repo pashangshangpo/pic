@@ -1,0 +1,11 @@
+node_modules/
+/.idea
+.DS_Store
+/dev
+/dist
+/temp
+/.history
+/api/config.js
+/outapp
+/.vscode
+/db/pro
