@@ -6,16 +6,13 @@
 
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import { el } from 'pssp/util'
 import Route from './Route'
 
 class App extends Component {
   render() {
-    return (
-      <div>
-        <Route />
-      </div>
-    )
+    return el(Route)
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'))
+ReactDOM.render(el(App), document.getElementById('app'))
