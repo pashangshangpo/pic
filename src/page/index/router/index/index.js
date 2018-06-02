@@ -11,6 +11,27 @@ import { Layout } from 'pssp-pc'
 const { Sider, Menu, Content } = Layout
 
 export default class extends Component {
+  state = {
+    checkedName: 'gitee'
+  }
+
+  types = {
+    'gitee': () => {
+      return el(
+        'div',
+        {},
+        'gitee'
+      )
+    },
+    '设置': () => {
+      return el(
+        'div',
+        {},
+        '设置'
+      )
+    }
+  }
+
   renderContent = () => {
     return el(
       Content,
@@ -19,7 +40,7 @@ export default class extends Component {
           padding: '12px'
         }
       },
-      '我是内容内容'
+      this.types[this.state.checkedName]()
     )
   }
 
@@ -31,7 +52,7 @@ export default class extends Component {
         Menu,
         {
           mode: 'vertical',
-          checked: 'gitee',
+          checked: this.state.checkedName,
           data: [
             {
               name: 'gitee'
@@ -40,9 +61,10 @@ export default class extends Component {
               name: '设置'
             }
           ],
-          onClick: (item, section, data) => {
-          },
           onOpenChange: (item, data) => {
+            this.setState({
+              checkedName: item.name
+            })
           }
         }
       )
