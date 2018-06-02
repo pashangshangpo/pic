@@ -10,7 +10,7 @@ const picServer = {
   gitee: (config, content, path) => {
     const { accessToken, owner, repo } = config
 
-    fetch(
+    return fetch(
       `https://gitee.com/api/v5/repos/${owner}/${repo}/contents/${path}`,
       {
         method: 'POST',
@@ -28,14 +28,7 @@ const picServer = {
     )
       .then(res => res.json())
       .then(res => {
-        const download_url = res.content.download_url
-
-        ipcRenderer.send('message', {
-          title: 'Pic',
-          body: '图片上传成功!'
-        })
-
-        clipboard.writeText(`![](${download_url})`)
+        return res.content.download_url
       })
   }
 }
@@ -73,18 +66,20 @@ const uploadPic = content => {
       JSON.parse(config),
       content,
       path
-    ).then(url => {
-
-      ipcRenderer.send('message', {
-        title: 'Pic',
-        body: '图片上传成功!'
-      })
-
+    )
+    .then(url => {
       return settings.customLinkFormat.replace('$url', url)
     })
   }
 
   return Promise.resolve()
+}
+
+const uploadPicSuccess = () => {
+  ipcRenderer.send('message', {
+    title: 'Pic',
+    body: '图片上传成功!'
+  })
 }
 
 const drag = e => {
@@ -107,7 +102,13 @@ const drag = e => {
     }
 
     Promise.all(promiseList).then(results => {
-      console.log(results)
+      return Promise.all(results.map(base64 => {
+        return uploadPic(base64.split(',')[1])
+      }))
+    })
+    .then(urls => {
+      clipboard.writeText(urls.join('\n'))
+      uploadPicSuccess()
     })
   }
 }
@@ -118,9 +119,11 @@ document.addEventListener('drop', drag)
 ipcRenderer.on('toUploadPic', () => {
   uploadPic(
     clipboard.readImage().toDataURL().split(',')[1]
-  ).then(url => {
+  )
+  .then(url => {
     if (url) {
       clipboard.writeText(url)
+      uploadPicSuccess()
     }
   })
 })
