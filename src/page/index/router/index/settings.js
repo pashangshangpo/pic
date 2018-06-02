@@ -19,7 +19,10 @@ export default class extends Component {
   }
 
   handleClickSave = () => {
-    
+    localStorage.setItem('settings', JSON.stringify({
+      currentPicServer: this.state.currentPicServer,
+      customLinkFormat: this.state.customLinkFormat || '![]($url)'
+    }))
   }
 
   handleChangeSelectPicServer = () => {
