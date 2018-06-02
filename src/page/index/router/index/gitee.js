@@ -9,6 +9,19 @@ import { el } from 'pssp/util'
 import { Form, Input } from 'pssp-pc'
 
 export default class extends Component {
+  state = {
+    accessToken: '',
+    owner: '',
+    repo: ''
+  }
+
+  handleClickSave = () => {
+    if (this.state.accessToken !== '' && this.state.owner !== '' && this.state.repo !== '') {
+      localStorage.setItem('gitee', JSON.stringify(this.state))
+      alert('设置成功')
+    }
+  }
+
   renderAccessToken = () => {
     return el(
       Input,
@@ -16,6 +29,9 @@ export default class extends Component {
         type: 'text',
         placeholder: '请输入access_token',
         onChange: e => {
+          this.setState({
+            accessToken: e.target.value
+          })
         }
       }
     )
@@ -28,6 +44,9 @@ export default class extends Component {
         type: 'text',
         placeholder: '请输入owner',
         onChange: e => {
+          this.setState({
+            owner: e.target.value
+          })
         }
       }
     )
@@ -40,8 +59,50 @@ export default class extends Component {
         type: 'text',
         placeholder: '请输入repo',
         onChange: e => {
+          this.setState({
+            repo: e.target.value
+          })
         }
       }
+    )
+  }
+
+  renderForm = () => {
+    return el(
+      Form,
+      {
+        ref: ref => this.form = ref, 
+        messageDirection: 'bottom',
+        data: [
+          {
+            name: 'access_token',
+            type: 'inputText',
+            rule: {
+              require: true,
+              requireMessage: '请输入access_token'
+            }
+          },
+          {
+            name: 'owner',
+            type: 'inputText',
+            rule: {
+              require: true,
+              requireMessage: '请输入owner'
+            }
+          },
+          {
+            name: 'repo',
+            type: 'inputText',
+            rule: {
+              require: true,
+              requireMessage: '请输入repo'
+            }
+          }
+        ]
+      },
+      this.renderAccessToken(),
+      this.renderOwner(),
+      this.renderRepo()
     )
   }
 
@@ -50,7 +111,8 @@ export default class extends Component {
       Input,
       {
         type: 'button',
-        value: '保存'
+        value: '保存',
+        onClick: this.handleClickSave
       }
     )
   }
@@ -59,41 +121,7 @@ export default class extends Component {
     return el(
       'div',
       {},
-      el(
-        Form,
-        {
-          messageDirection: 'bottom',
-          data: [
-            {
-              name: 'access_token',
-              type: 'inputText',
-              rule: {
-                require: true,
-                requireMessage: '请输入access_token'
-              }
-            },
-            {
-              name: 'owner',
-              type: 'inputText',
-              rule: {
-                require: true,
-                requireMessage: '请输入owner'
-              }
-            },
-            {
-              name: 'repo',
-              type: 'inputText',
-              rule: {
-                require: true,
-                requireMessage: '请输入repo'
-              }
-            }
-          ]
-        },
-        this.renderAccessToken(),
-        this.renderOwner(),
-        this.renderRepo()
-      ),
+      this.renderForm(),
       this.renderSave()
     )
   }
