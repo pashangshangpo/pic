@@ -33,10 +33,14 @@ const picServer = {
   }
 }
 
-const uploadPic = content => {
+const uploadPic = base64 => {
+  const arr = base64.split(',')
+  const content = arr[1]
+
   if (content) {
     const random = `${Date.now()}-${Math.random().toString(32).slice(2)}`
-    const path = `pic-${random}.png`
+    const ext = arr[0].split(':')[1].split(';')[0].split('/')[1]
+    const path = `pic-${random}.${ext}`
     
     let settings = localStorage.getItem('settings')
 
@@ -103,7 +107,7 @@ const drag = e => {
 
     Promise.all(promiseList).then(results => {
       return Promise.all(results.map(base64 => {
-        return uploadPic(base64.split(',')[1])
+        return uploadPic(base64)
       }))
     })
     .then(urls => {
@@ -118,7 +122,7 @@ document.addEventListener('drop', drag)
 
 ipcRenderer.on('toUploadPic', () => {
   uploadPic(
-    clipboard.readImage().toDataURL().split(',')[1]
+    clipboard.readImage().toDataURL()
   )
   .then(url => {
     if (url) {
