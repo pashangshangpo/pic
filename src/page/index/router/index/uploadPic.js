@@ -69,7 +69,7 @@ const uploadPic = content => {
       body: '正在上传图片...'
     })
 
-    picServer[settings.currentPicServer](
+    return picServer[settings.currentPicServer](
       JSON.parse(config),
       content,
       path
@@ -80,11 +80,11 @@ const uploadPic = content => {
         body: '图片上传成功!'
       })
 
-      clipboard.writeText(
-        settings.customLinkFormat.replace('$url', url)
-      )
+      return settings.customLinkFormat.replace('$url', url)
     })
   }
+
+  return Promise.resolve()
 }
 
 const drag = e => {
@@ -118,5 +118,7 @@ document.addEventListener('drop', drag)
 ipcRenderer.on('toUploadPic', () => {
   uploadPic(
     clipboard.readImage().toDataURL().split(',')[1]
-  )
+  ).then(url => {
+    clipboard.writeText(url)
+  })
 })
