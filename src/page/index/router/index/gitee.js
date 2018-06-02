@@ -15,6 +15,14 @@ export default class extends Component {
     repo: ''
   }
 
+  componentWillMount() {
+    const gitee = localStorage.getItem('gitee')
+    
+    if (gitee) {
+      this.setState(JSON.parse(gitee))
+    }
+  }
+
   handleClickSave = () => {
     if (this.state.accessToken !== '' && this.state.owner !== '' && this.state.repo !== '') {
       localStorage.setItem('gitee', JSON.stringify(this.state))
@@ -28,6 +36,7 @@ export default class extends Component {
       {
         type: 'text',
         placeholder: '请输入access_token',
+        value: this.state.accessToken,
         onChange: e => {
           this.setState({
             accessToken: e.target.value
@@ -43,6 +52,7 @@ export default class extends Component {
       {
         type: 'text',
         placeholder: '请输入owner',
+        value: this.state.owner,
         onChange: e => {
           this.setState({
             owner: e.target.value
@@ -58,6 +68,7 @@ export default class extends Component {
       {
         type: 'text',
         placeholder: '请输入repo',
+        value: this.state.repo,
         onChange: e => {
           this.setState({
             repo: e.target.value
