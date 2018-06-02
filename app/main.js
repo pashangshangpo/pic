@@ -10,10 +10,10 @@ let tray
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 900,
-    height: 700,
+    width: 380,
+    height: 290,
     center: true,
-    y: 80,
+    y: 60,
     show: false,
     fullscreenable: true,
     /**
@@ -36,7 +36,7 @@ function createWindow() {
     }))
 
     // Open the DevTools.
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
   }
   else {
     mainWindow.loadURL(url.format({
