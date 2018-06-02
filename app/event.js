@@ -43,7 +43,6 @@ ipcMain.on('message', function (event, arg) {
     title: arg.title,
     subtitle: arg.subtitle,
     body: arg.body,
-    icon: join(__dirname, '../images/favicon@4x.png'),
     sound: arg.sound || 'Glass',
     hasReply: !!arg.reply,
     replyPlaceholder: arg.reply
