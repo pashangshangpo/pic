@@ -8,6 +8,8 @@ import React, { Component } from 'react'
 import { el } from 'pssp/util'
 import { Layout } from 'pssp-pc'
 
+import Gitee from './gitee'
+
 const { Sider, Menu, Content } = Layout
 
 export default class extends Component {
@@ -17,11 +19,7 @@ export default class extends Component {
 
   types = {
     'gitee': () => {
-      return el(
-        'div',
-        {},
-        'gitee'
-      )
+      return el(Gitee)
     },
     '设置': () => {
       return el(
