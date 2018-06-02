@@ -43,7 +43,11 @@ export default class extends Component {
   renderSider = () => {
     return el(
       Sider,
-      {},
+      {
+        style: {
+          minWidth: '85px'
+        }
+      },
       el(
         Menu,
         {
