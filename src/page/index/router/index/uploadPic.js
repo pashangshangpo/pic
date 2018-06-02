@@ -88,3 +88,31 @@ ipcRenderer.on('toUploadPic', () => {
     })
   }
 })
+
+const drag = e => {
+  e.preventDefault()
+
+  if (e.type === 'drop') {
+    const files = e.dataTransfer.files
+    const promiseList = []
+
+    for (let file of files) {
+      promiseList.push(new Promise(resolve => {
+        const reader  = new FileReader()
+
+        reader.addEventListener('load', () =>{
+          resolve(reader.result)
+        }, false)
+  
+        reader.readAsDataURL(file)
+      }))
+    }
+
+    Promise.all(promiseList).then(results => {
+      console.log(results)
+    })
+  }
+}
+
+document.addEventListener('dragover', drag)
+document.addEventListener('drop', drag)
