@@ -64,6 +64,11 @@ ipcRenderer.on('toUploadPic', () => {
       return
     }
 
+    ipcRenderer.send('message', {
+      title: 'Pic',
+      body: '正在上传图片...'
+    })
+
     picServer[settings.currentPicServer](
       JSON.parse(config),
       base64,
