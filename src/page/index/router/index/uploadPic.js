@@ -40,10 +40,8 @@ const picServer = {
   }
 }
 
-ipcRenderer.on('toUploadPic', () => {
-  const base64 = clipboard.readImage().toDataURL().split(',')[1]
-
-  if (base64) {
+const uploadPic = content => {
+  if (content) {
     const random = `${Date.now()}-${Math.random().toString(32).slice(2)}`
     const path = `pic-${random}.png`
     
@@ -73,7 +71,7 @@ ipcRenderer.on('toUploadPic', () => {
 
     picServer[settings.currentPicServer](
       JSON.parse(config),
-      base64,
+      content,
       path
     ).then(url => {
 
@@ -87,7 +85,7 @@ ipcRenderer.on('toUploadPic', () => {
       )
     })
   }
-})
+}
 
 const drag = e => {
   e.preventDefault()
@@ -116,3 +114,9 @@ const drag = e => {
 
 document.addEventListener('dragover', drag)
 document.addEventListener('drop', drag)
+
+ipcRenderer.on('toUploadPic', () => {
+  uploadPic(
+    clipboard.readImage().toDataURL().split(',')[1]
+  )
+})
