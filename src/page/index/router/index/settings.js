@@ -10,7 +10,7 @@ import { Form, Input, Textarea, RadioTag } from 'pssp-pc'
 
 export default class extends Component {
   state = {
-    currentPicServer: 'gitee',
+    currentPicServer: '码云',
     customLinkFormat: ''
   }
 
@@ -40,7 +40,7 @@ export default class extends Component {
       RadioTag,
       {
         checked: this.state.currentPicServer,
-        data: ['gitee'],
+        data: ['码云'],
         onChange: tag => {
           this.setState({
             currentPicServer: tag
