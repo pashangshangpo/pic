@@ -15,7 +15,11 @@ export default class extends Component {
   }
 
   componentWillMount() {
-    
+    const settings = localStorage.getItem('settings')
+
+    if (settings) {
+      this.setState(JSON.parse(settings))
+    }
   }
 
   handleClickSave = () => {
@@ -23,6 +27,8 @@ export default class extends Component {
       currentPicServer: this.state.currentPicServer,
       customLinkFormat: this.state.customLinkFormat || '![]($url)'
     }))
+
+    alert('设置成功')
   }
 
   handleChangeSelectPicServer = () => {
