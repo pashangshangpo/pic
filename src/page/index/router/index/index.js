@@ -8,6 +8,7 @@ import React, { Component } from 'react'
 import { el } from 'pssp/util'
 import { Layout } from 'pssp-pc'
 
+import Settings from './settings'
 import Gitee from './gitee'
 import './uploadPic'
 
@@ -23,11 +24,7 @@ export default class extends Component {
       return el(Gitee)
     },
     '设置': () => {
-      return el(
-        'div',
-        {},
-        '设置'
-      )
+      return el(Settings)
     }
   }
 
