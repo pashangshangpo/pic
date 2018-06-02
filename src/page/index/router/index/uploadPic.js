@@ -44,7 +44,9 @@ ipcRenderer.on('toUploadPic', () => {
   const base64 = clipboard.readImage().toDataURL().split(',')[1]
 
   if (base64) {
-    const path = `pic-${Date.now()}-${Math.random().toString(32)}.png`
+    const random = `${Date.now()}-${Math.random().toString(32).slice(2)}`
+    const path = `pic-${random}.png`
+    
     let settings = localStorage.getItem('settings')
 
     if (settings) {
