@@ -37,57 +37,49 @@ export default class extends Component {
 
   renderSelectPicServer = () => {
     return el(
-      'div',
-      {},
-      el(
-        'h4',
-        {},
-        '当前使用的图床'
-      ),
-      el(
-        RadioTag,
-        {
-          checked: this.state.currentPicServer,
-          data: ['gitee'],
-          onChange: tag => {
-            this.setState({
-              currentPicServer: tag
-            })
-          }
+      RadioTag,
+      {
+        checked: this.state.currentPicServer,
+        data: ['gitee'],
+        onChange: tag => {
+          this.setState({
+            currentPicServer: tag
+          })
         }
-      )
+      }
     )
   }
 
   renderCustomLinkFormat = () => {
     return el(
-      'div',
-      {},
-      el(
-        'h4',
-        {},
-        '自定义链接格式'
-      ),
-      el(
-        Textarea,
-        {
-          placeholder: '$url为图片地址, markdown图片格式为: ![]($url)',
-          minLine: 3,
-          value: this.state.customLinkFormat,
-          onChange: e => {
-            this.setState({
-              customLinkFormat: e.target.value
-            })
-          }
+      Textarea,
+      {
+        placeholder: 'markdown格式: ![]($url)',
+        minLine: 2,
+        maxLine: 2,
+        value: this.state.customLinkFormat,
+        onChange: e => {
+          this.setState({
+            customLinkFormat: e.target.value
+          })
         }
-      )
+      }
     )
   }
 
   renderForm = () => {
     return el(
-      'div',
-      {},
+      Form,
+      {
+        data: [
+          {
+            name: '当前使用的图床'
+          },
+          {
+            name: '自定义链接格式'
+          }
+        ]
+      },
       this.renderSelectPicServer(),
       this.renderCustomLinkFormat()
     )
