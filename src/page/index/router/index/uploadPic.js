@@ -34,7 +34,9 @@ ipcRenderer.on('toUploadPic', () => {
       )
       .then(res => res.json())
       .then(res => {
-        console.log(res)
+        const download_url = res.content.download_url
+
+        clipboard.writeText(`![](${download_url})`)
       })
     }
   }
