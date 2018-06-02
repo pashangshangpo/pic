@@ -52,7 +52,7 @@ ipcRenderer.on('toUploadPic', () => {
     }
     else {
       settings = {
-        currentPicServer: '码云',
+        currentPicServer: 'gitee',
         customLinkFormat: '![]($url)'
       }
     }
