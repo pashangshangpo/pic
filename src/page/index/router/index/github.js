@@ -11,9 +11,11 @@ import { Form, Input } from 'pssp-pc'
 
 export default class extends Component {
   state = {
-    accessToken: '',
-    owner: '',
-    repo: ''
+    userName: '',
+    warehouse: '',
+    branch: '',
+    token: '',
+    path: ''
   }
 
   componentWillMount() {
@@ -31,48 +33,80 @@ export default class extends Component {
     }
   }
 
-  renderAccessToken = () => {
+  renderUserName = () => {
     return el(
       Input,
       {
         type: 'text',
-        placeholder: '请输入access_token',
-        value: this.state.accessToken,
+        placeholder: '请输入用户名',
+        value: this.state.userName,
         onChange: e => {
           this.setState({
-            accessToken: e.target.value
+            userName: e.target.value
           })
         }
       }
     )
   }
 
-  renderOwner = () => {
+  renderWarehouse = () => {
     return el(
       Input,
       {
         type: 'text',
-        placeholder: '请输入owner',
-        value: this.state.owner,
+        placeholder: '请输入仓库名',
+        value: this.state.warehouse,
         onChange: e => {
           this.setState({
-            owner: e.target.value
+            warehouse: e.target.value
           })
         }
       }
     )
   }
 
-  renderRepo = () => {
+  renderBranch = () => {
     return el(
       Input,
       {
         type: 'text',
-        placeholder: '请输入repo',
-        value: this.state.repo,
+        placeholder: '请输入分支名',
+        value: this.state.branch,
         onChange: e => {
           this.setState({
-            repo: e.target.value
+            branch: e.target.value
+          })
+        }
+      }
+    )
+  }
+
+  renderToken = () => {
+    return el(
+      Input,
+      {
+        type: 'text',
+        placeholder: '请输入Token',
+        value: this.state.token,
+        onChange: e => {
+          this.setState({
+            token: e.target.value
+          })
+        }
+      }
+    )
+  }
+
+  renderPath = () => {
+    return el(
+      Input,
+      {
+        type: 'text',
+        placeholder: '/',
+        value: this.state.path,
+        onChange: e => {
+          this.setState({
+            path: e.target.value
           })
         }
       }
@@ -87,34 +121,52 @@ export default class extends Component {
         messageDirection: 'bottom',
         data: [
           {
-            name: 'access_token',
+            name: '用户名',
             type: 'inputText',
             rule: {
               require: true,
-              requireMessage: '请输入access_token'
+              requireMessage: '请输入用户名'
             }
           },
           {
-            name: 'owner',
+            name: '仓库名',
             type: 'inputText',
             rule: {
               require: true,
-              requireMessage: '请输入owner'
+              requireMessage: '请输入仓库名'
             }
           },
           {
-            name: 'repo',
+            name: '分支名',
             type: 'inputText',
             rule: {
               require: true,
-              requireMessage: '请输入repo'
+              requireMessage: '请输入分支名'
+            }
+          },
+          {
+            name: 'Token',
+            type: 'inputText',
+            rule: {
+              require: true,
+              requireMessage: '请输入Token'
+            }
+          },
+          {
+            name: '储存路径',
+            type: 'inputText',
+            rule: {
+              require: true,
+              requireMessage: '请输入储存路径'
             }
           }
         ]
       },
-      this.renderAccessToken(),
-      this.renderOwner(),
-      this.renderRepo()
+      this.renderUserName(),
+      this.renderWarehouse(),
+      this.renderBranch(),
+      this.renderToken(),
+      this.renderPath()
     )
   }
 
