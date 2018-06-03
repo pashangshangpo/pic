@@ -167,7 +167,7 @@ ipcRenderer.on('drop-files', (e, paths) => {
 
           resolve({
             content: data.toString('base64'),
-            ext: extname(path)
+            ext: extname(path).slice(1)
           })
         })
       })
@@ -176,6 +176,13 @@ ipcRenderer.on('drop-files', (e, paths) => {
 
   Promise.all(promiseList).then(files => {
     files = files.filter(file => file.content !== '')
-    console.log(files)
+    
+    return Promise.all(files.map(file => {
+      return uploadPic(file.content, file.ext)
+    }))
+    .then(urls => {
+      clipboard.writeText(urls.join('\n'))
+      uploadPicSuccess()
+    })
   })
 })
