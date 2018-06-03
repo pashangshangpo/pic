@@ -5,6 +5,7 @@
  */
 
 import { clipboard, ipcRenderer } from 'electron'
+import { extname } from 'path'
 import fs from 'fs'
 
 const picServer = {
@@ -54,7 +55,12 @@ const parseBase64 = base64 => {
 const uploadPic = (content, ext) => {
   if (content) {
     const random = `${Date.now()}-${Math.random().toString(32).slice(2)}`
-    const path = `pic-${random}.${ext}`
+
+    if (ext) {
+      ext = `.${ext}`
+    }
+
+    const path = `pic-${random}${ext}`
 
     let settings = localStorage.getItem('settings')
 
@@ -159,14 +165,17 @@ ipcRenderer.on('drop-files', (e, paths) => {
             console.log(err)
           }
 
-          resolve(data.toString('base64'))
+          resolve({
+            content: data.toString('base64'),
+            ext: extname(path)
+          })
         })
       })
     )
   }
 
   Promise.all(promiseList).then(files => {
-    files = files.filter(file => file !== '')
+    files = files.filter(file => file.content !== '')
     console.log(files)
   })
 })
