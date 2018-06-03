@@ -1,8 +1,45 @@
 /**
- * 注册常用菜单
+ * @file 注册菜单
+ * @author pashangshangpo
+ * @createTime 2018年6月3日 上午11:51
  */
-const {Menu} = require('electron')
+
+const { app, Menu } = require('electron')
+
 const template = [
+  {
+    label: app.getName(),
+    submenu: [
+      {
+        role: 'about'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        role: 'services',
+        submenu: []
+      },
+      {
+        type: 'separator'
+      },
+      {
+        role: 'hide'
+      },
+      {
+        role: 'hideothers'
+      },
+      {
+        role: 'unhide'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        role: 'quit'
+      }
+    ]
+  },
   {
     label: 'Edit',
     submenu: [
@@ -47,20 +84,20 @@ const template = [
       {
         label: 'Reload',
         accelerator: 'CmdOrCtrl+R',
-        click: function(item, focusedWindow) {
+        click: function (item, focusedWindow) {
           if (focusedWindow)
             focusedWindow.reload();
         }
       },
       {
         label: 'Toggle Developer Tools',
-        accelerator: (function() {
+        accelerator: (function () {
           if (process.platform == 'darwin')
             return 'Alt+Command+I';
           else
             return 'Ctrl+Shift+I';
         })(),
-        click: function(item, focusedWindow) {
+        click: function (item, focusedWindow) {
           if (focusedWindow)
             focusedWindow.toggleDevTools();
         }
@@ -88,6 +125,6 @@ const template = [
       }
     ]
   }
-];
+]
 
-Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+Menu.setApplicationMenu(Menu.buildFromTemplate(template))
