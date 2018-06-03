@@ -24,7 +24,7 @@ export default class extends Component {
     'github': () => {
       return el(Github)
     },
-    '码云': () => {
+    'gitee': () => {
       return el(Gitee)
     },
     '设置': () => {
@@ -59,10 +59,10 @@ export default class extends Component {
           checked: this.state.checkedName,
           data: [
             {
-              name: 'github'
+              name: 'gitee'
             },
             {
-              name: '码云'
+              name: 'github'
             },
             {
               name: '设置'
