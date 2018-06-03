@@ -14,7 +14,8 @@ export default class extends Component {
   state = {
     accessToken: '',
     owner: '',
-    repo: ''
+    repo: '',
+    branch: 'master'
   }
 
   componentWillMount() {
@@ -80,6 +81,22 @@ export default class extends Component {
     )
   }
 
+  renderBranch = () => {
+    return el(
+      Input,
+      {
+        type: 'text',
+        placeholder: '请输入分支名',
+        value: this.state.branch,
+        onChange: e => {
+          this.setState({
+            branch: e.target.value
+          })
+        }
+      }
+    )
+  }
+
   renderForm = () => {
     return el(
       Form,
@@ -104,6 +121,14 @@ export default class extends Component {
             }
           },
           {
+            name: '分支名',
+            type: 'inputText',
+            rule: {
+              require: true,
+              requireMessage: '请输入分支名'
+            }
+          },
+          {
             name: 'Token',
             type: 'inputText',
             rule: {
@@ -115,6 +140,7 @@ export default class extends Component {
       },
       this.renderOwner(),
       this.renderRepo(),
+      this.renderBranch(),
       this.renderAccessToken()
     )
   }
