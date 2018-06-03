@@ -37,7 +37,7 @@ export default class extends Component {
       Input,
       {
         type: 'text',
-        placeholder: '请输入access_token',
+        placeholder: '请输入Token',
         value: this.state.accessToken,
         onChange: e => {
           this.setState({
@@ -53,7 +53,7 @@ export default class extends Component {
       Input,
       {
         type: 'text',
-        placeholder: '请输入owner',
+        placeholder: '请输入用户名',
         value: this.state.owner,
         onChange: e => {
           this.setState({
@@ -69,7 +69,7 @@ export default class extends Component {
       Input,
       {
         type: 'text',
-        placeholder: '请输入repo',
+        placeholder: '请输入仓库名',
         value: this.state.repo,
         onChange: e => {
           this.setState({
@@ -88,34 +88,34 @@ export default class extends Component {
         messageDirection: 'bottom',
         data: [
           {
-            name: 'access_token',
+            name: '用户名',
             type: 'inputText',
             rule: {
               require: true,
-              requireMessage: '请输入access_token'
+              requireMessage: '请输入用户名'
             }
           },
           {
-            name: 'owner',
+            name: '仓库名',
             type: 'inputText',
             rule: {
               require: true,
-              requireMessage: '请输入owner'
+              requireMessage: '请输入仓库名'
             }
           },
           {
-            name: 'repo',
+            name: 'Token',
             type: 'inputText',
             rule: {
               require: true,
-              requireMessage: '请输入repo'
+              requireMessage: '请输入Token'
             }
           }
         ]
       },
-      this.renderAccessToken(),
       this.renderOwner(),
-      this.renderRepo()
+      this.renderRepo(),
+      this.renderAccessToken()
     )
   }
 
