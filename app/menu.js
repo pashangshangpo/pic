@@ -31,12 +31,6 @@ const template = [
       },
       {
         role: 'unhide'
-      },
-      {
-        type: 'separator'
-      },
-      {
-        role: 'quit'
       }
     ]
   },
