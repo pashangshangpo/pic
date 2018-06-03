@@ -61,7 +61,7 @@ function createWindow() {
   // 右上角显示
   if (!tray) {
     tray = new Tray(join(__dirname, '../images/favicon@4x.png'))
-    tray.setToolTip('MyTime')
+    tray.setToolTip('Pic')
     tray.on('click', function () {
       // 从command+w 将窗口显示出来
       if (mainWindow === null) {
