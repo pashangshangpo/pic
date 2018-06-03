@@ -34,15 +34,28 @@ const picServer = {
   }
 }
 
-const uploadPic = base64 => {
+const parseBase64 = base64 => {
   const arr = base64.split(',')
   const content = arr[1]
 
+  if (!content) {
+    return {
+      content: '',
+      ext: ''
+    }
+  }
+
+  return {
+    content: content,
+    ext: arr[0].split(':')[1].split(';')[0].split('/')[1]
+  }
+}
+
+const uploadPic = (content, ext) => {
   if (content) {
     const random = `${Date.now()}-${Math.random().toString(32).slice(2)}`
-    const ext = arr[0].split(':')[1].split(';')[0].split('/')[1]
     const path = `pic-${random}.${ext}`
-    
+
     let settings = localStorage.getItem('settings')
 
     if (settings) {
@@ -72,9 +85,9 @@ const uploadPic = base64 => {
       content,
       path
     )
-    .then(url => {
-      return settings.customLinkFormat.replace('$url', url)
-    })
+      .then(url => {
+        return settings.customLinkFormat.replace('$url', url)
+      })
   }
 
   return Promise.resolve()
@@ -96,25 +109,27 @@ const drag = e => {
 
     for (let file of files) {
       promiseList.push(new Promise(resolve => {
-        const reader  = new FileReader()
+        const reader = new FileReader()
 
-        reader.addEventListener('load', () =>{
+        reader.addEventListener('load', () => {
           resolve(reader.result)
         }, false)
-  
+
         reader.readAsDataURL(file)
       }))
     }
 
     Promise.all(promiseList).then(results => {
       return Promise.all(results.map(base64 => {
-        return uploadPic(base64)
+        const { content, ext } = parseBase64(base64)
+
+        return uploadPic(content, ext)
       }))
     })
-    .then(urls => {
-      clipboard.writeText(urls.join('\n'))
-      uploadPicSuccess()
-    })
+      .then(urls => {
+        clipboard.writeText(urls.join('\n'))
+        uploadPicSuccess()
+      })
   }
 }
 
@@ -122,15 +137,15 @@ document.addEventListener('dragover', drag)
 document.addEventListener('drop', drag)
 
 ipcRenderer.on('toUploadPic', () => {
-  uploadPic(
-    clipboard.readImage().toDataURL()
-  )
-  .then(url => {
-    if (url) {
-      clipboard.writeText(url)
-      uploadPicSuccess()
-    }
-  })
+  const { content, ext } = parseBase64(clipboard.readImage().toDataURL())
+
+  uploadPic(content, ext)
+    .then(url => {
+      if (url) {
+        clipboard.writeText(url)
+        uploadPicSuccess()
+      }
+    })
 })
 
 ipcRenderer.on('drop-files', (e, paths) => {
@@ -143,7 +158,7 @@ ipcRenderer.on('drop-files', (e, paths) => {
           if (err) {
             console.log(err)
           }
-    
+
           resolve(data.toString('base64'))
         })
       })
