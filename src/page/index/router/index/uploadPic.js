@@ -10,10 +10,10 @@ import fs from 'fs'
 
 const picServer = {
   gitee: (config, content, path) => {
-    const { accessToken, owner, repo, branch } = config
+    const { token, userName, warehouse, branch } = config
 
     return fetch(
-      `https://gitee.com/api/v5/repos/${owner}/${repo}/contents/${path}`,
+      `https://gitee.com/api/v5/repos/${userName}/${warehouse}/contents/${path}`,
       {
         method: 'POST',
         mode: 'cors',
@@ -22,7 +22,7 @@ const picServer = {
           'Content-Type': 'application/json;charset=UTF-8'
         },
         body: JSON.stringify({
-          access_token: accessToken,
+          access_token: token,
           content: content,
           message: 'upload pic',
           branch: branch

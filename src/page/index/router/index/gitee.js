@@ -12,9 +12,9 @@ import './gitee.less'
 
 export default class extends Component {
   state = {
-    accessToken: '',
-    owner: '',
-    repo: '',
+    userName: '',
+    warehouse: '',
+    token: '',
     branch: 'master'
   }
 
@@ -27,54 +27,36 @@ export default class extends Component {
   }
 
   handleClickSave = () => {
-    if (this.state.accessToken !== '' && this.state.owner !== '' && this.state.repo !== '') {
-      localStorage.setItem('gitee', JSON.stringify(this.state))
-      alert('设置成功')
-    }
+    localStorage.setItem('gitee', JSON.stringify(this.state))
+    alert('设置成功')
   }
 
-  renderAccessToken = () => {
-    return el(
-      Input,
-      {
-        type: 'text',
-        placeholder: '请输入Token',
-        value: this.state.accessToken,
-        onChange: e => {
-          this.setState({
-            accessToken: e.target.value
-          })
-        }
-      }
-    )
-  }
-
-  renderOwner = () => {
+  renderUserName = () => {
     return el(
       Input,
       {
         type: 'text',
         placeholder: '请输入用户名',
-        value: this.state.owner,
+        value: this.state.userName,
         onChange: e => {
           this.setState({
-            owner: e.target.value
+            userName: e.target.value
           })
         }
       }
     )
   }
 
-  renderRepo = () => {
+  renderWarehouse = () => {
     return el(
       Input,
       {
         type: 'text',
         placeholder: '请输入仓库名',
-        value: this.state.repo,
+        value: this.state.warehouse,
         onChange: e => {
           this.setState({
-            repo: e.target.value
+            warehouse: e.target.value
           })
         }
       }
@@ -91,6 +73,22 @@ export default class extends Component {
         onChange: e => {
           this.setState({
             branch: e.target.value
+          })
+        }
+      }
+    )
+  }
+
+  renderToken = () => {
+    return el(
+      Input,
+      {
+        type: 'text',
+        placeholder: '请输入Token',
+        value: this.state.token,
+        onChange: e => {
+          this.setState({
+            token: e.target.value
           })
         }
       }
@@ -138,10 +136,10 @@ export default class extends Component {
           }
         ]
       },
-      this.renderOwner(),
-      this.renderRepo(),
+      this.renderUserName(),
+      this.renderWarehouse(),
       this.renderBranch(),
-      this.renderAccessToken()
+      this.renderToken()
     )
   }
 
