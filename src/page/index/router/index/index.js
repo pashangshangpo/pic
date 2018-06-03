@@ -9,6 +9,7 @@ import { el } from 'pssp/util'
 import { Layout } from 'pssp-pc'
 
 import Settings from './settings'
+import Github from './github'
 import Gitee from './gitee'
 import './uploadPic'
 
@@ -16,10 +17,13 @@ const { Sider, Menu, Content } = Layout
 
 export default class extends Component {
   state = {
-    checkedName: '码云'
+    checkedName: 'github'
   }
 
   types = {
+    'github': () => {
+      return el(Github)
+    },
     '码云': () => {
       return el(Gitee)
     },
@@ -54,6 +58,9 @@ export default class extends Component {
           mode: 'vertical',
           checked: this.state.checkedName,
           data: [
+            {
+              name: 'github'
+            },
             {
               name: '码云'
             },

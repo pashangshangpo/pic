@@ -69,7 +69,7 @@ const uploadPic = (content, ext = '') => {
     }
     else {
       settings = {
-        currentPicServer: 'gitee',
+        currentPicServer: 'github',
         customLinkFormat: '![]($url)'
       }
     }
