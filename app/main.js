@@ -49,12 +49,7 @@ function createWindow() {
     // mainWindow.webContents.openDevTools()
   }
 
-  // 准备完成时再显示,友好体验
-  mainWindow.once('ready-to-show', function () {
-    setTimeout(function () {
-      mainWindow.show()
-    }, 100)
-  })
+  app.dock.hide()
 
   mainWindow.once('closed', function () {
     mainWindow = null
