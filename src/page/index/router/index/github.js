@@ -13,24 +13,37 @@ export default class extends Component {
   state = {
     userName: '',
     warehouse: '',
-    branch: '',
+    branch: 'master',
     token: '',
-    path: ''
+    path: '/'
   }
 
   componentWillMount() {
-    const gitee = localStorage.getItem('gitee')
+    const data = localStorage.getItem('github')
 
-    if (gitee) {
-      this.setState(JSON.parse(gitee))
+    if (data) {
+      this.setState(JSON.parse(data))
     }
   }
 
   handleClickSave = () => {
-    if (this.state.accessToken !== '' && this.state.owner !== '' && this.state.repo !== '') {
-      localStorage.setItem('gitee', JSON.stringify(this.state))
-      alert('设置成功')
-    }
+    const {
+      userName,
+      warehouse,
+      branch,
+      token,
+      path
+    } = this.state
+
+    localStorage.setItem('github', JSON.stringify({
+      userName,
+      warehouse,
+      branch,
+      token,
+      path
+    }))
+
+    alert('设置成功')
   }
 
   renderUserName = () => {
