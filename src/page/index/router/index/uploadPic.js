@@ -5,6 +5,7 @@
  */
 
 import { clipboard, ipcRenderer } from 'electron'
+import fs from 'fs'
 
 const picServer = {
   gitee: (config, content, path) => {
@@ -129,5 +130,28 @@ ipcRenderer.on('toUploadPic', () => {
       clipboard.writeText(url)
       uploadPicSuccess()
     }
+  })
+})
+
+ipcRenderer.on('drop-files', (e, paths) => {
+  const promiseList = []
+
+  for (let path of paths) {
+    promiseList.push(
+      new Promise(resolve => {
+        fs.readFile(path, (err, data) => {
+          if (err) {
+            console.log(err)
+          }
+    
+          resolve(data.toString('base64'))
+        })
+      })
+    )
+  }
+
+  Promise.all(promiseList).then(files => {
+    files = files.filter(file => file !== '')
+    console.log(files)
   })
 })
