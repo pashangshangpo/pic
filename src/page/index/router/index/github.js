@@ -14,8 +14,7 @@ export default class extends Component {
     userName: '',
     warehouse: '',
     branch: 'master',
-    token: '',
-    path: '/'
+    token: ''
   }
 
   componentWillMount() {
@@ -110,22 +109,6 @@ export default class extends Component {
     )
   }
 
-  renderPath = () => {
-    return el(
-      Input,
-      {
-        type: 'text',
-        placeholder: '/',
-        value: this.state.path,
-        onChange: e => {
-          this.setState({
-            path: e.target.value
-          })
-        }
-      }
-    )
-  }
-
   renderForm = () => {
     return el(
       Form,
@@ -164,22 +147,13 @@ export default class extends Component {
               require: true,
               requireMessage: '请输入Token'
             }
-          },
-          {
-            name: '储存路径',
-            type: 'inputText',
-            rule: {
-              require: true,
-              requireMessage: '请输入储存路径'
-            }
           }
         ]
       },
       this.renderUserName(),
       this.renderWarehouse(),
       this.renderBranch(),
-      this.renderToken(),
-      this.renderPath()
+      this.renderToken()
     )
   }
 
