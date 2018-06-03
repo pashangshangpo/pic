@@ -5,7 +5,7 @@
  */
 
 import { clipboard, ipcRenderer } from 'electron'
-import { extname } from 'path'
+import { extname, join } from 'path'
 import fs from 'fs'
 
 const picServer = {
@@ -24,7 +24,7 @@ const picServer = {
         body: JSON.stringify({
           access_token: accessToken,
           content: content,
-          message: `uploadpic ${path}`
+          message: 'upload pic'
         })
       }
     )
@@ -32,6 +32,30 @@ const picServer = {
       .then(res => {
         return res.content.download_url
       })
+  },
+  github: (config, content, path) => {
+    return fetch(
+      `https://api.github.com/repos/${config.userName}/${config.warehouse}/contents/${encodeURI(path)}`,
+      {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Authorization': `token ${config.token}`,
+          'Content-Type': 'application/json;charset=UTF-8',
+          'User-Agent': 'Pic'
+        },
+        body: JSON.stringify({
+          path: path,
+          message: 'upload pic',
+          content: content,
+          branch: config.branch
+        })
+      }
+    )
+    .then(res => res.json())
+    .then(res => {
+      return res.content.download_url
+    })
   }
 }
 
