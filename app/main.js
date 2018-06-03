@@ -1,12 +1,14 @@
 /**
- * app入口程序
+ * @file 程序入口
+ * @author pashangshangpo
+ * @createTime 2018年6月3日 上午10:18
  */
-const { app, BrowserWindow, Menu, Tray } = require('electron')
+
+const { app, BrowserWindow, Menu } = require('electron')
 const url = require('url')
 const { join } = require('path')
 
 let mainWindow
-let tray
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -57,38 +59,14 @@ function createWindow() {
   mainWindow.once('closed', function () {
     mainWindow = null
   })
-
-  // 右上角显示
-  if (!tray) {
-    tray = new Tray(join(__dirname, '../images/favicon@4x.png'))
-    tray.setToolTip('Pic')
-    tray.on('click', function () {
-      // 从command+w 将窗口显示出来
-      if (mainWindow === null) {
-        setTimeout(() => {
-          createWindow()
-        }, 100)
-      }
-      // command+m 从最小化关闭
-      else {
-        // 切换显示
-        if (mainWindow.isVisible()) {
-          mainWindow.minimize()
-        }
-        else {
-          mainWindow.show()
-        }
-      }
-    })
-  }
 }
 
 
 app.on('ready', function () {
   createWindow()
-  // 菜单
+
+  require('./tray')
   require('./menu')
-  // 键盘事件
   require('./keydown')
 })
 
