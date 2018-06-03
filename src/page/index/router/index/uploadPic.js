@@ -52,7 +52,7 @@ const parseBase64 = base64 => {
   }
 }
 
-const uploadPic = (content, ext) => {
+const uploadPic = (content, ext = '') => {
   if (content) {
     const random = `${Date.now()}-${Math.random().toString(32).slice(2)}`
 
