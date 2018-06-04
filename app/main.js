@@ -4,11 +4,12 @@
  * @createTime 2018年6月3日 上午10:18
  */
 
-const { app, BrowserWindow, Menu } = require('electron')
+const { app, BrowserWindow, Menu, Tray } = require('electron')
 const url = require('url')
 const { join } = require('path')
 
 let mainWindow
+let tray = null
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -63,7 +64,35 @@ function createWindow() {
 app.on('ready', function () {
   createWindow()
 
-  require('./tray')
+  if (!tray) {
+    tray = new Tray(join(__dirname, '../images/favicon@4x.png'))
+  
+    tray.setToolTip('Pic')
+  
+    tray.on('click', () => {
+      // 从command+w 将窗口显示出来
+      if (mainWindow === null) {
+        setTimeout(() => {
+          createWindow()
+        }, 100)
+      }
+      // command+m 从最小化关闭
+      else {
+        // 切换显示
+        if (mainWindow.isVisible()) {
+          mainWindow.minimize()
+        }
+        else {
+          mainWindow.show()
+        }
+      }
+    })
+  
+    tray.on('drop-files', (e, files) => {
+      mainWindow.webContents.send('drop-files', files)
+    })
+  }
+  
   require('./menu')
   require('./keydown')
 })
