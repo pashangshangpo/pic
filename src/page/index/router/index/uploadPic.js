@@ -8,6 +8,8 @@ import { clipboard, ipcRenderer } from 'electron'
 import { extname, join } from 'path'
 import fs from 'fs'
 
+let initState = false
+
 const getPathName = (ext = '') => {
   let random = `${Date.now()}-${Math.random().toString(32).slice(2)}`
 
@@ -69,10 +71,14 @@ const picServer = {
     })
   },
   leancloud: (config, content, path) => {
-    Leancloud.init(
-      config.appId,
-      config.appKey
-    )
+    if (!initState) {
+      Leancloud.init(
+        config.appId,
+        config.appKey
+      )
+
+      initState = true
+    }
     
     return new Leancloud.File(path, {
       base64: content
