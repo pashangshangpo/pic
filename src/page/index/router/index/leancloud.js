@@ -28,7 +28,7 @@ export default class extends Component {
       appKey
     } = this.state
 
-    localStorage.setItem('github', JSON.stringify({
+    localStorage.setItem('leancloud', JSON.stringify({
       appId,
       appKey
     }))
