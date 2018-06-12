@@ -55,7 +55,7 @@ const picServer = {
         headers: {
           'Authorization': `token ${config.token}`,
           'Content-Type': 'application/json;charset=UTF-8',
-          'User-Agent': 'Pic'
+          'User-Agent': 'pic'
         },
         body: JSON.stringify({
           path: path,
@@ -126,12 +126,12 @@ const uploadPic = (content, ext) => {
     const config = localStorage.getItem(settings.currentPicServer)
 
     if (!config) {
-      alert('没有配置Pic服务')
+      alert('没有配置pic服务')
       return
     }
 
     ipcRenderer.send('message', {
-      title: 'Pic',
+      title: 'pic',
       body: '正在上传图片...'
     })
 
@@ -150,7 +150,7 @@ const uploadPic = (content, ext) => {
 
 const uploadPicSuccess = () => {
   ipcRenderer.send('message', {
-    title: 'Pic',
+    title: 'pic',
     body: '图片上传成功!'
   })
 }

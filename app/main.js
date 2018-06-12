@@ -67,7 +67,7 @@ app.on('ready', function () {
   if (!tray) {
     tray = new Tray(join(__dirname, '../images/favicon@4x.png'))
   
-    tray.setToolTip('Pic')
+    tray.setToolTip('pic')
   
     tray.on('click', () => {
       // 从command+w 将窗口显示出来

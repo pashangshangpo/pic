@@ -6,7 +6,7 @@
 
 module.exports = {
   app: {
-    name: 'Pic'
+    name: 'pic'
   },
   page: {
   },
