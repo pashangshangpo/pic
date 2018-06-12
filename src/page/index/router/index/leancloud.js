@@ -15,7 +15,7 @@ export default class extends Component {
   }
 
   componentWillMount() {
-    const data = localStorage.getItem('github')
+    const data = localStorage.getItem('leancloud')
 
     if (data) {
       this.setState(JSON.parse(data))
