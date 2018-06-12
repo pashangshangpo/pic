@@ -8,6 +8,16 @@ import { clipboard, ipcRenderer } from 'electron'
 import { extname, join } from 'path'
 import fs from 'fs'
 
+const getPathName = (ext = '') => {
+  let random = `${Date.now()}-${Math.random().toString(32).slice(2)}`
+
+  if (ext) {
+    ext = `.${ext}`
+  }
+
+  return `pic-${random}${ext}`
+}
+
 const picServer = {
   gitee: (config, content, path) => {
     const { token, userName, warehouse, branch } = config
@@ -77,15 +87,9 @@ const parseBase64 = base64 => {
   }
 }
 
-const uploadPic = (content, ext = '') => {
+const uploadPic = (content, ext) => {
   if (content) {
-    const random = `${Date.now()}-${Math.random().toString(32).slice(2)}`
-
-    if (ext) {
-      ext = `.${ext}`
-    }
-
-    const path = `pic-${random}${ext}`
+    const path = getPathName(ext)
 
     let settings = localStorage.getItem('settings')
 
@@ -168,7 +172,7 @@ document.addEventListener('dragover', drag)
 document.addEventListener('drop', drag)
 
 ipcRenderer.on('toUploadPic', () => {
-  const { content, ext } = parseBase64(clipboard.readImage().toDataURL())
+  let { content, ext } = parseBase64(clipboard.readImage().toDataURL())
 
   uploadPic(content, ext)
     .then(url => {

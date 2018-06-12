@@ -8,14 +8,7 @@ module.exports = {
   app: {
     name: 'Pic'
   },
-  // 页面级配置
   page: {
-    // index: {
-    //   dll: ['react', 'react-dom']
-    // },
-    // home: {
-    //   dll: ['mobx']
-    // }
   },
   gitCommon: [
     {
@@ -25,5 +18,23 @@ module.exports = {
       repo: 'https://gitee.com/pashangshangpo/pssp.git'
     }
   ],
-  env: {}
+  env: {},
+  inject: {
+    js: [
+      function () {
+        const { remote } = require('electron');
+        const { join } = require('path');
+        const app = remote.app;
+        const appPath = app.getAppPath('userData');
+
+        window.resolveApp = function (...arr) {
+          return join.apply(null, [appPath].concat(arr));
+        };
+
+        window.nativeModulePath = resolveApp('app/node_modules');
+
+        window.Leancloud = require(join(window.nativeModulePath, 'leancloud-storage'));
+      }
+    ]
+  }
 }
