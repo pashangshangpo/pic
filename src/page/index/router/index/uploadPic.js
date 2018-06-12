@@ -67,6 +67,20 @@ const picServer = {
     .then(res => {
       return res.content.download_url
     })
+  },
+  leancloud: (config, content, path) => {
+    Leancloud.init(
+      config.appId,
+      config.appKey
+    )
+    
+    return new Leancloud.File(path, {
+      base64: content
+    })
+    .save()
+    .then(file => {
+      return file.url()
+    })
   }
 }
 

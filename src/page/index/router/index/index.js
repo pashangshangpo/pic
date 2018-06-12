@@ -9,9 +9,13 @@ import { el } from 'pssp/util'
 import { Layout } from 'pssp-pc'
 
 import Settings from './settings'
+
 import Github from './github'
 import Gitee from './gitee'
+import Leancloud from './leancloud'
+
 import './uploadPic'
+import './index.less'
 
 const { Sider, Menu, Content } = Layout
 
@@ -26,6 +30,9 @@ export default class extends Component {
     },
     'gitee': () => {
       return el(Gitee)
+    },
+    'leancloud': () => {
+      return el(Leancloud)
     },
     '设置': () => {
       return el(Settings)
@@ -63,6 +70,9 @@ export default class extends Component {
             },
             {
               name: 'github'
+            },
+            {
+              name: 'leancloud'
             },
             {
               name: '设置'
