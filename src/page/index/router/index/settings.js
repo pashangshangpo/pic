@@ -69,10 +69,10 @@ export default class extends Component {
       {
         data: [
           {
-            name: '当前使用的图床'
+            name: '图床'
           },
           {
-            name: '自定义链接格式'
+            name: '链接格式'
           }
         ]
       },
