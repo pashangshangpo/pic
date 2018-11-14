@@ -12,8 +12,7 @@
     "packager": "node ./server/index.js -t packager",
     "release": "node ./server/releaseApp.js"
   },
-  "releaseVersion": [
-  ],
+  "releaseVersion": [],
   "devDependencies": {
     "assets-webpack-plugin": "^3.5.1",
     "babel-core": "^6.26.0",

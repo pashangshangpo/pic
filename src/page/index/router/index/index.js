@@ -13,6 +13,7 @@ import Settings from './settings'
 import Github from './github'
 import Gitee from './gitee'
 import Leancloud from './leancloud'
+import Segmentfault from './segmentfault'
 
 import './uploadPic'
 import './index.less'
@@ -33,6 +34,9 @@ export default class extends Component {
     },
     'leancloud': () => {
       return el(Leancloud)
+    },
+    'segmentfault': () => {
+      return el(Segmentfault)
     },
     '设置': () => {
       return el(Settings)
@@ -73,6 +77,9 @@ export default class extends Component {
             },
             {
               name: 'leancloud'
+            },
+            {
+              name: 'segmentfault'
             },
             {
               name: '设置'

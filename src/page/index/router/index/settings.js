@@ -36,7 +36,7 @@ export default class extends Component {
       RadioTag,
       {
         checked: this.state.currentPicServer,
-        data: ['github', 'gitee', 'leancloud'],
+        data: ['github', 'gitee', 'leancloud', 'segmentfault'],
         onChange: tag => {
           this.setState({
             currentPicServer: tag

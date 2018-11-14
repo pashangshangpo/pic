@@ -4,10 +4,12 @@
  * @createTime 2018年6月2日 下午1:41
  */
 
-import { clipboard, ipcRenderer } from 'electron'
+import { clipboard, ipcRenderer, remote } from 'electron'
 import { extname, join } from 'path'
 import fs from 'fs'
+import FormData from 'form-data'
 
+let net = remote.net
 let initState = false
 
 const getPathName = (ext = '') => {
@@ -86,6 +88,38 @@ const picServer = {
     .save()
     .then(file => {
       return file.url()
+    })
+  },
+  segmentfault: (config, content, path) => {
+    return new Promise(resolve => {
+      let formData = new FormData()
+      formData.append('image', new Buffer(content, 'base64'), path)
+    
+      const request = net.request({
+        method: 'post',
+        url: `https://segmentfault.com/img/upload/image?_=${path}`,
+        headers: {
+          ...(formData.getHeaders()),
+          'User-Agent': 'pic',
+          'cookie': config.cookie
+        }
+      })
+    
+      request.writable = true
+      formData.pipe(request)
+    
+      request.on('response', (response) => {
+        response.on('data', res => {
+          let data = JSON.parse(res)
+    
+          if (data[0] === 0) {
+            resolve(`https://image-static.segmentfault.com${data[2]}_articlex`)
+          }
+          else {
+            resolve()
+          }
+        })
+      })
     })
   }
 }

@@ -18,9 +18,9 @@ function createWindow() {
     center: true,
     y: 60,
     show: false,
-    maximizable: false,
-    closable: false,
-    resizable: false,
+    // maximizable: false,
+    // closable: false,
+    // resizable: false,
     fullscreenable: true,
     /**
      * webSecurity Boolean (可选) - 当设置为 false, 它将禁用同源策略 (通常用来测试网站), 如果此选项不是由开发者设置的，还会把 allowRunningInsecureContent设置为 true. 默认值为 true。
@@ -42,7 +42,7 @@ function createWindow() {
     }))
 
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
   }
   else {
     mainWindow.loadURL(url.format({
