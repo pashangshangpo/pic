@@ -19,7 +19,7 @@ function createWindow() {
     y: 60,
     show: false,
     maximizable: false,
-    // closable: false,
+    closable: false,
     resizable: false,
     fullscreenable: true,
     /**
@@ -42,7 +42,7 @@ function createWindow() {
     }))
 
     // Open the DevTools.
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
   }
   else {
     mainWindow.loadURL(url.format({
